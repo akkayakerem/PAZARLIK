@@ -1,0 +1,35 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Signup kodları için (test için herkese açık)
+    match /signupCodes/{email} {
+      allow read, write: if true;
+    }
+    
+    // Reset kodları için (test için herkese açık)
+    match /resetCodes/{email} {
+      allow read, write: if true;
+    }
+    
+    // Password reset tokens için (test için herkese açık)
+    match /passwordResetTokens/{email} {
+      allow read, write: if true;
+    }
+    
+    // Verification kodları için (test için herkese açık)
+    match /verificationCodes/{email} {
+      allow read, write: if true;
+    }
+    
+    // Kullanıcı bilgileri için
+    match /users/{userId} {
+      allow read: if request.auth != null;
+      allow write: if request.auth != null && request.auth.uid == userId;
+    }
+  }
+}
+
+
+
+
+
